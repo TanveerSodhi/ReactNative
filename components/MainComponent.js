@@ -12,6 +12,7 @@ import { Icon} from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import Reservation from './ResevationComponent';
+import Favorites from './FavoriteComponent';
 
 const mapStateToProps = state => {
   return {
@@ -167,6 +168,17 @@ function MyDrawer() {
             />
         )}}/>
 
+<MainNavigator.Screen name="My Favorites" component={FavoritesNavigatorScreen}
+        options={{title: "My Favorites"},
+        {drawerIcon: ({tintColor}) => (
+            <Icon 
+            name='heart'
+            type='font-awesome'
+            size={24}
+            color={tintColor}
+            />
+        )}}/>
+
 <MainNavigator.Screen name="Reserve Table" component={ReservationNavigatorScreen}
         options={{title: "Reserve Table"},
         {drawerIcon: ({tintColor}) => (
@@ -177,6 +189,8 @@ function MyDrawer() {
             color={tintColor}
             />
         )}}/>
+
+
             
       </MainNavigator.Navigator>
      
@@ -283,6 +297,38 @@ function MyDrawer() {
      );
  }
   
+ const Favoritesavigator=createStackNavigator();
+
+ function FavoritesNavigatorScreen() {
+     return(
+     
+         <Favoritesavigator.Navigator
+             
+             screenOptions={{
+                 headerStyle: {
+                     backgroundColor: "#512DA8"
+                 },
+                 headerTintColor: "#fff",
+                 headerTitleStyle: {
+                     color: "#fff"            
+                 }
+             }}
+         >
+             <Favoritesavigator.Screen
+                 name="My Favorites"
+                 component={Favorites}
+                 options={({navigation})=>({
+                    headerTitle: "My Favorites",
+                    headerLeft: () => (<Icon name='menu' size={24}
+                        color='white'
+                        onPress={() => navigation.toggleDrawer()}
+                        />)
+                })}
+             />
+                    
+         </Favoritesavigator.Navigator>
+     );
+ }
 
 class Main extends Component {
   

@@ -154,3 +154,22 @@ export const addLeaders = (leaders) => ({
     type: ActionTypes.ADD_LEADERS,
     payload: leaders
 });
+
+export const postComment = (dishId, rating, author, comment) => dispatch => {
+    const newComment = {
+      dishId: dishId,
+      rating: rating,
+      author: author,
+      comment: comment
+    };
+    newComment.date = new Date().toISOString();
+  
+    setTimeout(() => {
+      dispatch(addComment(newComment));
+    }, 2000);
+  };
+  
+  export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+  });
