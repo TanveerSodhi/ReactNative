@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Text, View, ScrollView, FlatList ,StyleSheet,
     Button, Modal} from 'react-native';
 import { Card, Icon, Rating , Input } from 'react-native-elements';
-
+import * as Animatable from 'react-native-animatable';
 import {connect} from 'react-redux';
 import {baseUrl} from '../shared/baseUrl';
 import { postFavorite ,postComment} from '../redux/ActionCreators';
@@ -28,6 +28,7 @@ function RenderDish(props) {
     
         if (dish != null) {
             return(
+                <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
                 <Card
                 featuredTitle={dish.name}
                 image={{uri: baseUrl + dish.image}}>
@@ -53,6 +54,7 @@ function RenderDish(props) {
                         />  
                         </View>  
                 </Card>
+                </Animatable.View>
             );
         }
         else {
@@ -81,6 +83,7 @@ function RenderComments(props) {
     };
     
     return (
+        <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>  
         <Card title='Comments' >
         <FlatList 
             data={comments}
@@ -88,6 +91,7 @@ function RenderComments(props) {
             keyExtractor={item => item.id.toString()}
             />
         </Card>
+        </Animatable.View>
     );
 }
 
