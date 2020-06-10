@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import Reservation from './ResevationComponent';
 import Favorites from './FavoriteComponent';
+import Login from './LoginComponent';
 
 const mapStateToProps = state => {
   return {
@@ -126,7 +127,20 @@ function MyDrawer() {
       <MainNavigator.Navigator drawerStyle={{
         backgroundColor: '#D1C4E9'
       }}
-      drawerContent={props => <CustomDrawerContentComponent {...props} />}>
+      drawerContent={props => <CustomDrawerContentComponent {...props} />}
+      initialRouteName='Home'>
+
+<MainNavigator.Screen name="Login" component={LoginNavigatorScreen}
+            options={{title: "Login"},
+            {drawerIcon: ({tintColor}) => (
+                <Icon 
+                name='sign-in'
+                type='font-awesome'
+                size={24}
+                color={tintColor}
+                />
+            )}}/>
+
         <MainNavigator.Screen name="Home" component={HomeNavigatorScreen}
             options={{title: "Home"},
             {drawerIcon: ({tintColor}) => (
@@ -297,12 +311,12 @@ function MyDrawer() {
      );
  }
   
- const Favoritesavigator=createStackNavigator();
+ const FavoritesNavigator=createStackNavigator();
 
  function FavoritesNavigatorScreen() {
      return(
      
-         <Favoritesavigator.Navigator
+         <FavoritesNavigator.Navigator
              
              screenOptions={{
                  headerStyle: {
@@ -314,7 +328,7 @@ function MyDrawer() {
                  }
              }}
          >
-             <Favoritesavigator.Screen
+             <FavoritesNavigator.Screen
                  name="My Favorites"
                  component={Favorites}
                  options={({navigation})=>({
@@ -326,7 +340,40 @@ function MyDrawer() {
                 })}
              />
                     
-         </Favoritesavigator.Navigator>
+         </FavoritesNavigator.Navigator>
+     );
+ }
+
+ const LoginNavigator=createStackNavigator();
+
+ function LoginNavigatorScreen() {
+     return(
+     
+         <LoginNavigator.Navigator
+             
+             screenOptions={{
+                 headerStyle: {
+                     backgroundColor: "#512DA8"
+                 },
+                 headerTintColor: "#fff",
+                 headerTitleStyle: {
+                     color: "#fff"            
+                 }
+             }}
+         >
+             <LoginNavigator.Screen
+                 name="Login"
+                 component={Login}
+                 options={({navigation})=>({
+                    headerTitle: "Login",
+                    headerLeft: () => (<Icon name='menu' size={24}
+                        color='white'
+                        onPress={() => navigation.toggleDrawer()}
+                        />)
+                })}
+             />
+                    
+         </LoginNavigator.Navigator>
      );
  }
 
